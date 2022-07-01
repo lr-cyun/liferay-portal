@@ -229,10 +229,6 @@ public class FieldConstants {
 			return value;
 		}
 		else if (type.equals(DOUBLE)) {
-			if (!NumberUtil.hasDecimalSeparator(value)) {
-				return GetterUtil.getInteger(value);
-			}
-
 			return GetterUtil.getDouble(value);
 		}
 		else if (type.equals(FLOAT)) {

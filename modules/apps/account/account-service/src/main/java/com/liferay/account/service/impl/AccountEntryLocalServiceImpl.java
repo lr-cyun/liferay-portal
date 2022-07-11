@@ -100,6 +100,8 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.apache.commons.validator.routines.DomainValidator;
@@ -1041,6 +1043,12 @@ public class AccountEntryLocalServiceImpl
 
 		if (Validator.isNull(externalReferenceCode)) {
 			return;
+		}
+
+		Pattern externalReferenceCodePattern = Pattern.compile("[-\\dA-Za-z]+");
+		Matcher matcher = externalReferenceCodePattern.matcher(externalReferenceCode);
+		if (!matcher.matches()) {
+			throw new DuplicateAccountEntryExternalReferenceCodeException();
 		}
 
 		AccountEntry accountEntry = getAccountEntry(accountEntryId);
